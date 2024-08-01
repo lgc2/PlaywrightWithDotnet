@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EaFramework", "EaFramework.csproj", "{A3C6154B-D60E-4EA0-9246-314625747FFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EaApplicationTest", "..\EaApplicationTest\EaApplicationTest.csproj", "{FCF6E6DB-51CF-4A49-983A-68C760401758}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3C6154B-D60E-4EA0-9246-314625747FFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3C6154B-D60E-4EA0-9246-314625747FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3C6154B-D60E-4EA0-9246-314625747FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3C6154B-D60E-4EA0-9246-314625747FFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCF6E6DB-51CF-4A49-983A-68C760401758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF6E6DB-51CF-4A49-983A-68C760401758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCF6E6DB-51CF-4A49-983A-68C760401758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCF6E6DB-51CF-4A49-983A-68C760401758}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CBE72B7B-C50E-4CD9-AD8A-6AECAF258030}
+	EndGlobalSection
+EndGlobal
