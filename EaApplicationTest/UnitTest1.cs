@@ -8,17 +8,14 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 {
 	private PlaywrightDriver _playwrightDriver;
 	private PlaywrightDriverInitializer _playwrightDriverinitializer;
+	private TestSettings _testSettings;
 
 	public Tests(PlaywrightDriverInitializer playwrightDriverInitializer)
 	{
-		var testSettings = new TestSettings
-		{
-			DriverType = DriverType.Firefox,
-			Headless = false
-		};
+		_testSettings = ConfigReader.ReadConfig();
 
 		_playwrightDriverinitializer = playwrightDriverInitializer;
-		_playwrightDriver = new PlaywrightDriver(testSettings, _playwrightDriverinitializer);
+		_playwrightDriver = new PlaywrightDriver(_testSettings, _playwrightDriverinitializer);
 
 	}
 
@@ -27,7 +24,7 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 	{
 		var page = await _playwrightDriver.Page;
 
-		await page.GotoAsync("http://eaapp.somee.com");
+		await page.GotoAsync(_testSettings.ApplicationUrl);
 		await page.ClickAsync("text=Login");
 	}
 
@@ -36,7 +33,7 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 	{
 		var page = await _playwrightDriver.Page;
 
-		await page.GotoAsync("http://eaapp.somee.com");
+		await page.GotoAsync(_testSettings.ApplicationUrl);
 		await page.ClickAsync("text=Login");
 		await page.GetByLabel("UserName").FillAsync("admin");
 		await page.GetByLabel("Password").FillAsync("password");
