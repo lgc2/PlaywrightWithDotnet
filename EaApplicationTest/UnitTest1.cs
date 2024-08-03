@@ -1,3 +1,4 @@
+using EaApplicationTest.Pages;
 using EaFramework.Config;
 using EaFramework.Driver;
 using Microsoft.Playwright;
@@ -40,5 +41,29 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 
 		await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Log in" }).ClickAsync();
 		await page.GetByRole(AriaRole.Link, new PageGetByRoleOptions { Name = "Employee List" }).ClickAsync();
+	}
+
+	[Fact]
+	public async Task CreateProductAndAccessTheDetailsTest()
+	{
+		var page = await _playwrightDriver.Page;
+		var productListPage = new ProductListPage(page);
+		var productCreatePage = new ProductCreatePage(page);
+		var productDetailsPage = new ProductDetailsPage(page);
+
+		var name = productCreatePage.GenerateRandomProductName("UPS");
+		var description = "Uninterrupted power supply backup";
+		var price = "2000";
+		var selectOption = "2";
+
+		await page.GotoAsync("http://localhost:8000/");
+
+		await productListPage.AccessCreateProductPageAsync();
+
+		await productCreatePage.CreateProductAsync(name, description, price, selectOption);
+
+		await productListPage.ClickOnProductDetailsLnk(name);
+
+		await productDetailsPage.ValidateInformations(name);
 	}
 }
