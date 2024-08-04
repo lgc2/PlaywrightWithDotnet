@@ -20,13 +20,13 @@ public class ProductCreatePage
 	public async Task CreateProduct(
 		string name,
 		string description,
-		string price,
-		string selectOption)
+		int price,
+		int selectOption)
 	{
 		await _iptName.FillAsync(name);
 		await _iptDescription.FillAsync(description);
-		await _iptPrice.FillAsync(price);
-		await _selectProductType.SelectOptionAsync(new[] { selectOption });
+		await _iptPrice.FillAsync(price.ToString());
+		await _selectProductType.SelectOptionAsync(new[] { selectOption.ToString() });
 
 	}
 

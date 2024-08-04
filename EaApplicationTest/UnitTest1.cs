@@ -47,18 +47,17 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 		_playwrightDriver.Dispose();
 	}
 
-	[Fact]
-	public async Task CreateProductAndAccessTheDetailsTest()
+	[Theory]
+	[InlineData("UPS", "Uninterrupted power supply backup", 2063, 2)]
+	[InlineData("Monitor LG", "Monitor of 24\"", 20099, 1)]
+	public async Task CreateProductAndAccessTheDetailsTest(string name, string description, int price, int selectOption)
 	{
 		var page = await _playwrightDriver.Page;
 		var productListPage = new ProductListPage(page);
 		var productCreatePage = new ProductCreatePage(page);
 		var productDetailsPage = new ProductDetailsPage(page);
 
-		var name = productCreatePage.GenerateRandomProductName("UPS");
-		var description = "Uninterrupted power supply backup";
-		var price = "2000";
-		var selectOption = "2";
+		name = productCreatePage.GenerateRandomProductName(name);
 
 		await page.GotoAsync("http://localhost:8000/");
 
