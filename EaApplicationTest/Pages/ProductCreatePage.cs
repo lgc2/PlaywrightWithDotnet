@@ -17,7 +17,7 @@ public class ProductCreatePage
 	private ILocator _selectProductType => _page.GetByLabel("ProductType");
 	private ILocator _btnCreate => _page.GetByRole(AriaRole.Button, new() { Name = "Create" });
 
-	public async Task CreateProductAsync(
+	public async Task CreateProduct(
 		string name,
 		string description,
 		string price,
@@ -27,8 +27,10 @@ public class ProductCreatePage
 		await _iptDescription.FillAsync(description);
 		await _iptPrice.FillAsync(price);
 		await _selectProductType.SelectOptionAsync(new[] { selectOption });
-		await _btnCreate.ClickAsync();
+
 	}
+
+	public async Task ClickCreate() => await _btnCreate.ClickAsync();
 
 	public string GenerateRandomProductName(string name)
 	{

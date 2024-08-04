@@ -14,11 +14,7 @@ public class ProductDetailsPage
 	private ILocator _pageTitle => _page.GetByRole(AriaRole.Heading, new() { Name = "Details" });
 	private ILocator _productName => _page.Locator("#Name");
 
-	public async Task ValidateInformations(string productName)
-	{
-		await _pageTitle.IsVisibleAsync();
+	public ILocator GetPageTitleElement() => _pageTitle;
 
-		var productNameText = await _productName.TextContentAsync();
-		Assert.Equal(productName, productNameText?.Trim());
-	}
+	public ILocator GetProductNameElement() => _productName;
 }

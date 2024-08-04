@@ -27,6 +27,8 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 
 		await page.GotoAsync(_testSettings.ApplicationUrl);
 		await page.ClickAsync("text=Login");
+
+		_playwrightDriver.Dispose();
 	}
 
 	[Fact]
@@ -41,6 +43,8 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 
 		await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Log in" }).ClickAsync();
 		await page.GetByRole(AriaRole.Link, new PageGetByRoleOptions { Name = "Employee List" }).ClickAsync();
+
+		_playwrightDriver.Dispose();
 	}
 
 	[Fact]
@@ -60,10 +64,15 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 
 		await productListPage.AccessCreateProductPageAsync();
 
-		await productCreatePage.CreateProductAsync(name, description, price, selectOption);
+		await productCreatePage.CreateProduct(name, description, price, selectOption);
+		await productCreatePage.ClickCreate();
 
 		await productListPage.ClickOnProductDetailsLnk(name);
 
-		await productDetailsPage.ValidateInformations(name);
+		await Assertions.Expect(productDetailsPage.GetPageTitleElement()).ToBeVisibleAsync();
+		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToBeVisibleAsync();
+		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToHaveTextAsync(name);
+
+		_playwrightDriver.Dispose();
 	}
 }
