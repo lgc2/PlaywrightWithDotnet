@@ -1,3 +1,5 @@
+using AutoFixture.Xunit2;
+using EaApplicationTest.Models;
 using EaApplicationTest.Pages;
 using EaFramework.Config;
 using EaFramework.Driver;
@@ -46,11 +48,15 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 
 		_playwrightDriver.Dispose();
 	}
-
+	/*
 	[Theory]
 	[InlineData("UPS", "Uninterrupted power supply backup", 2063, 2)]
 	[InlineData("Monitor LG", "Monitor of 24\"", 20099, 1)]
-	public async Task CreateProductAndAccessTheDetailsTest(string name, string description, int price, int selectOption)
+	public async Task CreateProductAndAccessTheDetailsTestWithInlineData(
+		string name,
+		string description,
+		int price,
+		int selectOption)
 	{
 		var page = await _playwrightDriver.Page;
 		var productListPage = new ProductListPage(page);
@@ -71,6 +77,62 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 		await Assertions.Expect(productDetailsPage.GetPageTitleElement()).ToBeVisibleAsync();
 		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToBeVisibleAsync();
 		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToHaveTextAsync(name);
+
+		_playwrightDriver.Dispose();
+	}
+	*/
+	[Fact]
+	public async Task CreateProductAndAccessTheDetailsTestWithConcreteTypes()
+	{
+		var page = await _playwrightDriver.Page;
+		var productListPage = new ProductListPage(page);
+		var productCreatePage = new ProductCreatePage(page);
+		var productDetailsPage = new ProductDetailsPage(page);
+
+		var product = new Product()
+		{
+			Name = productCreatePage.GenerateRandomProductName("Test Product"),
+			Description = "Test Product Description",
+			Price = 65465,
+			ProductType = ProductType.EXTERNAL
+		};
+
+		await page.GotoAsync("http://localhost:8000/");
+
+		await productListPage.AccessCreateProductPageAsync();
+
+		await productCreatePage.CreateProduct(product);
+		await productCreatePage.ClickCreate();
+
+		await productListPage.ClickOnProductDetailsLnk(product.Name);
+
+		await Assertions.Expect(productDetailsPage.GetPageTitleElement()).ToBeVisibleAsync();
+		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToBeVisibleAsync();
+		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToHaveTextAsync(product.Name);
+
+		_playwrightDriver.Dispose();
+	}
+
+	[Theory, AutoData]
+	public async Task CreateProductAndAccessTheDetailsTestWithAutofixtureData(Product product)
+	{
+		var page = await _playwrightDriver.Page;
+		var productListPage = new ProductListPage(page);
+		var productCreatePage = new ProductCreatePage(page);
+		var productDetailsPage = new ProductDetailsPage(page);
+
+		await page.GotoAsync("http://localhost:8000/");
+
+		await productListPage.AccessCreateProductPageAsync();
+
+		await productCreatePage.CreateProduct(product);
+		await productCreatePage.ClickCreate();
+
+		await productListPage.ClickOnProductDetailsLnk(product.Name);
+
+		await Assertions.Expect(productDetailsPage.GetPageTitleElement()).ToBeVisibleAsync();
+		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToBeVisibleAsync();
+		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToHaveTextAsync(product.Name);
 
 		_playwrightDriver.Dispose();
 	}

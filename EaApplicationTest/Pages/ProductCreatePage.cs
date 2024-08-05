@@ -1,4 +1,5 @@
-﻿using Microsoft.Playwright;
+﻿using EaApplicationTest.Models;
+using Microsoft.Playwright;
 
 namespace EaApplicationTest.Pages;
 
@@ -17,16 +18,12 @@ public class ProductCreatePage
 	private ILocator _selectProductType => _page.GetByLabel("ProductType");
 	private ILocator _btnCreate => _page.GetByRole(AriaRole.Button, new() { Name = "Create" });
 
-	public async Task CreateProduct(
-		string name,
-		string description,
-		int price,
-		int selectOption)
+	public async Task CreateProduct(Product product)
 	{
-		await _iptName.FillAsync(name);
-		await _iptDescription.FillAsync(description);
-		await _iptPrice.FillAsync(price.ToString());
-		await _selectProductType.SelectOptionAsync(new[] { selectOption.ToString() });
+		await _iptName.FillAsync(product.Name);
+		await _iptDescription.FillAsync(product.Description);
+		await _iptPrice.FillAsync(product.Price.ToString());
+		await _selectProductType.SelectOptionAsync(new[] { product.ProductType.ToString() });
 
 	}
 
