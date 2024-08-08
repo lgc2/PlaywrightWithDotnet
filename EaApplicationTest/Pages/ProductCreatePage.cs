@@ -1,16 +1,21 @@
 ﻿using EaApplicationTest.Models;
+using EaFramework.Driver;
 using Microsoft.Playwright;
 
 namespace EaApplicationTest.Pages;
 
-public class ProductCreatePage
+public interface IProductCreatePage
+{
+	Task ClickCreate();
+	Task CreateProduct(Product product);
+	string GenerateRandomProductName(string name);
+}
+
+public class ProductCreatePage : IProductCreatePage
 {
 	private readonly IPage _page;
 
-	public ProductCreatePage(IPage page)
-	{
-		_page = page;
-	}
+	public ProductCreatePage(IPlaywrightDriver playwrightDriver) => _page = playwrightDriver.Page.Result;
 
 	private ILocator _iptName => _page.GetByLabel("Name");
 	private ILocator _iptDescription => _page.GetByLabel("Description");

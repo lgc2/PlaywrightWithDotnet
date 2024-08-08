@@ -1,15 +1,19 @@
-﻿using Microsoft.Playwright;
+﻿using EaFramework.Driver;
+using Microsoft.Playwright;
 
 namespace EaApplicationTest.Pages;
 
-public class ProductListPage
+public interface IProductListPage
+{
+	Task AccessCreateProductPageAsync();
+	Task ClickOnProductDetailsLnk(string productName);
+}
+
+public class ProductListPage : IProductListPage
 {
 	private readonly IPage _page;
 
-	public ProductListPage(IPage page)
-	{
-		_page = page;
-	}
+	public ProductListPage(IPlaywrightDriver playwrightDriver) => _page = playwrightDriver.Page.Result;
 
 	private ILocator _lnkProductList => _page.GetByRole(AriaRole.Link, new() { Name = "Product" });
 	private ILocator _lnkCreate => _page.GetByRole(AriaRole.Link, new() { Name = "Create" });

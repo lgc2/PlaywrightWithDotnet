@@ -7,19 +7,26 @@ using Microsoft.Playwright;
 
 namespace EaApplicationTest;
 
-public class Tests : IClassFixture<PlaywrightDriverInitializer>
+public class UnitTest1
 {
-	private PlaywrightDriver _playwrightDriver;
-	private PlaywrightDriverInitializer _playwrightDriverinitializer;
-	private TestSettings _testSettings;
+	private readonly IPlaywrightDriver _playwrightDriver;
+	private readonly TestSettings _testSettings;
+	private readonly IProductListPage _productListPage;
+	private readonly IProductCreatePage _productCreatePage;
+	private readonly IProductDetailsPage _productDetailsPage;
 
-	public Tests(PlaywrightDriverInitializer playwrightDriverInitializer)
+	public UnitTest1(
+		IPlaywrightDriver playwrightDriver,
+		TestSettings testSettings,
+		IProductListPage productListPage,
+		IProductCreatePage productCreatePage,
+		IProductDetailsPage productDetailsPage)
 	{
-		_testSettings = ConfigReader.ReadConfig();
-
-		_playwrightDriverinitializer = playwrightDriverInitializer;
-		_playwrightDriver = new PlaywrightDriver(_testSettings, _playwrightDriverinitializer);
-
+		_playwrightDriver = playwrightDriver;
+		_testSettings = testSettings;
+		_productListPage = productListPage;
+		_productCreatePage = productCreatePage;
+		_productDetailsPage = productDetailsPage;
 	}
 
 	[Fact]
@@ -27,7 +34,7 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 	{
 		var page = await _playwrightDriver.Page;
 
-		await page.GotoAsync(_testSettings.ApplicationUrl);
+		await page.GotoAsync("http://eaapp.somee.com");
 		await page.ClickAsync("text=Login");
 
 		_playwrightDriver.Dispose();
@@ -38,7 +45,7 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 	{
 		var page = await _playwrightDriver.Page;
 
-		await page.GotoAsync(_testSettings.ApplicationUrl);
+		await page.GotoAsync("http://eaapp.somee.com");
 		await page.ClickAsync("text=Login");
 		await page.GetByLabel("UserName").FillAsync("admin");
 		await page.GetByLabel("Password").FillAsync("password");
@@ -85,13 +92,10 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 	public async Task CreateProductAndAccessTheDetailsTestWithConcreteTypes()
 	{
 		var page = await _playwrightDriver.Page;
-		var productListPage = new ProductListPage(page);
-		var productCreatePage = new ProductCreatePage(page);
-		var productDetailsPage = new ProductDetailsPage(page);
 
 		var product = new Product()
 		{
-			Name = productCreatePage.GenerateRandomProductName("Test Product"),
+			Name = _productCreatePage.GenerateRandomProductName("Test Product"),
 			Description = "Test Product Description",
 			Price = 65465,
 			ProductType = ProductType.EXTERNAL
@@ -99,16 +103,16 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 
 		await page.GotoAsync("http://localhost:8000/");
 
-		await productListPage.AccessCreateProductPageAsync();
+		await _productListPage.AccessCreateProductPageAsync();
 
-		await productCreatePage.CreateProduct(product);
-		await productCreatePage.ClickCreate();
+		await _productCreatePage.CreateProduct(product);
+		await _productCreatePage.ClickCreate();
 
-		await productListPage.ClickOnProductDetailsLnk(product.Name);
+		await _productListPage.ClickOnProductDetailsLnk(product.Name);
 
-		await Assertions.Expect(productDetailsPage.GetPageTitleElement()).ToBeVisibleAsync();
-		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToBeVisibleAsync();
-		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToHaveTextAsync(product.Name);
+		await Assertions.Expect(_productDetailsPage.GetPageTitleElement()).ToBeVisibleAsync();
+		await Assertions.Expect(_productDetailsPage.GetProductNameElement()).ToBeVisibleAsync();
+		await Assertions.Expect(_productDetailsPage.GetProductNameElement()).ToHaveTextAsync(product.Name);
 
 		_playwrightDriver.Dispose();
 	}
@@ -117,22 +121,19 @@ public class Tests : IClassFixture<PlaywrightDriverInitializer>
 	public async Task CreateProductAndAccessTheDetailsTestWithAutofixtureData(Product product)
 	{
 		var page = await _playwrightDriver.Page;
-		var productListPage = new ProductListPage(page);
-		var productCreatePage = new ProductCreatePage(page);
-		var productDetailsPage = new ProductDetailsPage(page);
 
 		await page.GotoAsync("http://localhost:8000/");
 
-		await productListPage.AccessCreateProductPageAsync();
+		await _productListPage.AccessCreateProductPageAsync();
 
-		await productCreatePage.CreateProduct(product);
-		await productCreatePage.ClickCreate();
+		await _productCreatePage.CreateProduct(product);
+		await _productCreatePage.ClickCreate();
 
-		await productListPage.ClickOnProductDetailsLnk(product.Name);
+		await _productListPage.ClickOnProductDetailsLnk(product.Name);
 
-		await Assertions.Expect(productDetailsPage.GetPageTitleElement()).ToBeVisibleAsync();
-		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToBeVisibleAsync();
-		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToHaveTextAsync(product.Name);
+		await Assertions.Expect(_productDetailsPage.GetPageTitleElement()).ToBeVisibleAsync();
+		await Assertions.Expect(_productDetailsPage.GetProductNameElement()).ToBeVisibleAsync();
+		await Assertions.Expect(_productDetailsPage.GetProductNameElement()).ToHaveTextAsync(product.Name);
 
 		_playwrightDriver.Dispose();
 	}

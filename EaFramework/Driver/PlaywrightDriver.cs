@@ -3,7 +3,7 @@ using EaFramework.Config;
 
 namespace EaFramework.Driver;
 
-public class PlaywrightDriver : IDisposable
+public class PlaywrightDriver : IDisposable, IPlaywrightDriver
 {
 	private readonly AsyncTask<IBrowser> _browser;
 	private readonly AsyncTask<IBrowserContext> _browserContext;
