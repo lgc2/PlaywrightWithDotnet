@@ -2,8 +2,7 @@
 Create a new product
 
 Scenario: Create product and verify the details
-	Given I click the Product menu
-	And I click the "Create" link
+	Given I access the create product page
 	And I create a product with the following details
 		| Name       | Description        | Price | ProductType |
 		| Headphones | Noise cancellation | 300   | PERIPHARALS |
