@@ -21,11 +21,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Drivers\" />
-		<Folder Include="Support\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\EaFramework\EaFramework.csproj" />
 	</ItemGroup>
 
