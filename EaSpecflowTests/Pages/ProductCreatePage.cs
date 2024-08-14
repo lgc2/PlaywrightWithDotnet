@@ -25,7 +25,7 @@ public class ProductCreatePage : IProductCreatePage
 
 	public async Task CreateProduct(Product product)
 	{
-		product.Name = GenerateRandomProductName(product.Name);
+		//product.Name = GenerateRandomProductName(product.Name);
 
 		await _iptName.FillAsync(product.Name);
 		await _iptDescription.FillAsync(product.Description);

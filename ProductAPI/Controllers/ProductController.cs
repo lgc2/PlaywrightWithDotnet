@@ -50,7 +50,7 @@ namespace ProductAPI.Controllers
             return productRepository.UpdateProduct(product);
         }
 
-        // PUT: ProductController/Delete
+        // DELETE: ProductController/Delete
         [HttpDelete]
         [Route("/[controller]/[action]")]
         public void Delete(int id)
@@ -58,5 +58,12 @@ namespace ProductAPI.Controllers
             productRepository.DeleteProduct(id);
         }
 
+        // DELETE: ProductController/Delete
+        [HttpDelete]
+        [Route("/[controller]/[action]")]
+        public void DeleteByName(string name)
+        {
+            productRepository.DeleteProductByName(name);
+        }
     }
 }

@@ -1,6 +1,9 @@
 ﻿Feature: Product
 Create a new product
 
+Background:
+	Given I ensure "Headphones" data is cleaned up if it already exists
+
 Scenario: Create product and verify the details
 	Given I access the create product page
 	And I create a product with the following details
