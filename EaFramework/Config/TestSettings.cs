@@ -9,6 +9,7 @@ public class TestSettings
 	public float SlowMo { get; set; }
 	public DriverType DriverType { get; set; } = DriverType.Chrome;
 	public string ApplicationUrl { get; set; }
+	public string ApplicationApiUrl { get; set; }
 }
 
 public enum DriverType
