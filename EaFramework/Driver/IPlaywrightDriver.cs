@@ -7,6 +7,7 @@ namespace EaFramework.Driver
 		Task<IBrowser> Browser { get; }
 		Task<IBrowserContext> BrowserContext { get; }
 		Task<IPage> Page { get; }
+		Task<IAPIRequestContext> ApiRequestContext { get; }
 		void Dispose();
 	}
 }
