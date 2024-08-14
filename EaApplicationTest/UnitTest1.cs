@@ -36,8 +36,6 @@ public class UnitTest1
 
 		await page.GotoAsync("http://eaapp.somee.com");
 		await page.ClickAsync("text=Login");
-
-		_playwrightDriver.Dispose();
 	}
 
 	[Fact]
@@ -52,8 +50,6 @@ public class UnitTest1
 
 		await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Log in" }).ClickAsync();
 		await page.GetByRole(AriaRole.Link, new PageGetByRoleOptions { Name = "Employee List" }).ClickAsync();
-
-		_playwrightDriver.Dispose();
 	}
 	/*
 	[Theory]
@@ -84,8 +80,6 @@ public class UnitTest1
 		await Assertions.Expect(productDetailsPage.GetPageTitleElement()).ToBeVisibleAsync();
 		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToBeVisibleAsync();
 		await Assertions.Expect(productDetailsPage.GetProductNameElement()).ToHaveTextAsync(name);
-
-		_playwrightDriver.Dispose();
 	}
 	*/
 	[Fact]
@@ -113,8 +107,6 @@ public class UnitTest1
 		await Assertions.Expect(_productDetailsPage.GetPageTitleElement()).ToBeVisibleAsync();
 		await Assertions.Expect(_productDetailsPage.GetProductNameElement()).ToBeVisibleAsync();
 		await Assertions.Expect(_productDetailsPage.GetProductNameElement()).ToHaveTextAsync(product.Name);
-
-		_playwrightDriver.Dispose();
 	}
 
 	[Theory, AutoData]
@@ -134,7 +126,5 @@ public class UnitTest1
 		await Assertions.Expect(_productDetailsPage.GetPageTitleElement()).ToBeVisibleAsync();
 		await Assertions.Expect(_productDetailsPage.GetProductNameElement()).ToBeVisibleAsync();
 		await Assertions.Expect(_productDetailsPage.GetProductNameElement()).ToHaveTextAsync(product.Name);
-
-		_playwrightDriver.Dispose();
 	}
 }
