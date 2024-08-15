@@ -1,2 +1,0 @@
-// generate the specflow report
-livingdoc test-assembly 'C:\dev\PlaywrightCsharpCourse\Project\EaSpecflowTests\bin\Debug\net8.0\EaSpecflowTests.dll' -t 'C:\dev\PlaywrightCsharpCourse\Project\EaSpecflowTests\bin\Debug\net8.0\TestExecution.json'
