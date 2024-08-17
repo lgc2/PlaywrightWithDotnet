@@ -30,6 +30,13 @@ jobs:
       uses: powershell-devops/powershell-devops@v0.2.0
     - name: Ensure browsers are installed
       run: pwsh ${{ github.workspace }}/EaApplicationTest/bin/Debug/net8.0/playwright.ps1 install --with-deps
+    - name: Docker Compose Action
+      uses: hoverkraft-tech/compose-action@v2.0.1
+      with:
+        compose-file: ./docker-compose.yml
+        services: |
+          ea_api
+          ea_webapp
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: ./EaApplicationTest
