@@ -21,7 +21,7 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Navigate to the test application folder
-      run: cd ${{ github.workspace }}/EaApplicationTest
+      run: cd /EaApplicationTest
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
