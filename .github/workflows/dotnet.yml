@@ -24,5 +24,11 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+    - name: Install powershell-devops Module
+      uses: powershell-devops/powershell-devops@v0.2.0
+    - name: Ensure browsers are installed
+      run: pwsh ${{ github.workspace }}/EaApplicationTest/bin/Debug/net8.0/playwright.ps1 install --with-deps
+    - name: Navigate to the test application folder
+      run: cd ${{ github.workspace }}/EaApplicationTest
     - name: Test
       run: dotnet test --no-build --verbosity normal
