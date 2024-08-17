@@ -20,15 +20,16 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Navigate to the test application folder
-      run: cd /EaApplicationTest
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: ./EaApplicationTest
     - name: Build
       run: dotnet build --no-restore
+      working-directory: ./EaApplicationTest
     - name: Install powershell-devops Module
       uses: powershell-devops/powershell-devops@v0.2.0
     - name: Ensure browsers are installed
       run: pwsh ${{ github.workspace }}/EaApplicationTest/bin/Debug/net8.0/playwright.ps1 install --with-deps
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      working-directory: ./EaApplicationTest
