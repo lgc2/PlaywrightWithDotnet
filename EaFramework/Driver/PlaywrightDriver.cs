@@ -73,6 +73,8 @@ public class PlaywrightDriver : IDisposable, IPlaywrightDriver
 		if (_browser.IsValueCreated)
 			Task.Run(async () =>
 			{
+				await (await Page).CloseAsync();
+				await (await BrowserContext).CloseAsync();
 				await (await Browser).CloseAsync();
 				await (await Browser).DisposeAsync();
 			});

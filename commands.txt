@@ -4,3 +4,7 @@ livingdoc test-assembly 'C:\dev\PlaywrightCsharpCourse\Project\EaSpecflowTests\b
 // selenium grid
 docker run --network project_ea_network -d -p 4444:4444 --shm-size="2g" -e SE_NODE_GRID_URL="http://localhost:4444" selenium/standalone-chrome:4.3.0-20220726
 SELENIUM_REMOTE_URL=http://localhost:4444 dotnet test
+
+// HAR file generation
+pwsh playwright.ps1 open --save-har eapp.har --save-har-glob="**/Product/**" http://localhost:5001
+pwsh playwright.ps1 open --save-har eapp.har http://localhost:5001
