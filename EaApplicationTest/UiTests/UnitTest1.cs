@@ -137,7 +137,7 @@ public class UnitTest1
 		//Browser
 		await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
 		{
-			Headless = false
+			Headless = true
 		});
 		//Page
 		var page = await browser.NewPageAsync(new BrowserNewPageOptions
