@@ -19,7 +19,7 @@ namespace EaSpecflowTests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class ProductFeature : object, Xunit.IClassFixture<ProductFeature.FixtureData>, System.IDisposable
+    public partial class OtherFeatureFeature : object, Xunit.IClassFixture<OtherFeatureFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace EaSpecflowTests.Features
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "Product.feature"
+#line 1 "OtherFeature.feature"
 #line hidden
         
-        public ProductFeature(ProductFeature.FixtureData fixtureData, EaSpecflowTests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public OtherFeatureFeature(OtherFeatureFeature.FixtureData fixtureData, EaSpecflowTests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,7 @@ namespace EaSpecflowTests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Product", "Create a new product", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "OtherFeature", "Create a new product", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,7 +80,7 @@ namespace EaSpecflowTests.Features
 #line 4
 #line hidden
 #line 5
- testRunner.Given("I ensure \"Headphones\" data is cleaned up if it already exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I ensure \"Keyboard\" data is cleaned up if it already exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
         }
         
@@ -89,14 +89,14 @@ namespace EaSpecflowTests.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Create product and verify the details")]
-        [Xunit.TraitAttribute("FeatureTitle", "Product")]
-        [Xunit.TraitAttribute("Description", "Create product and verify the details")]
-        public void CreateProductAndVerifyTheDetails()
+        [Xunit.SkippableFactAttribute(DisplayName="Create product and verify the details (2)")]
+        [Xunit.TraitAttribute("FeatureTitle", "OtherFeature")]
+        [Xunit.TraitAttribute("Description", "Create product and verify the details (2)")]
+        public void CreateProductAndVerifyTheDetails2()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create product and verify the details", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create product and verify the details (2)", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -113,18 +113,18 @@ this.FeatureBackground();
 #line 8
  testRunner.Given("I access the create product page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "Description",
                             "Price",
                             "ProductType"});
-                table2.AddRow(new string[] {
-                            "Headphones",
+                table1.AddRow(new string[] {
+                            "Keyboard",
                             "Noise cancellation",
                             "300",
                             "PERIPHARALS"});
 #line 9
- testRunner.And("I create a product with the following details", ((string)(null)), table2, "And ");
+ testRunner.And("I create a product with the following details", ((string)(null)), table1, "And ");
 #line hidden
 #line 12
  testRunner.When("I click the details link of the newly created product", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -143,12 +143,12 @@ this.FeatureBackground();
             
             public FixtureData()
             {
-                ProductFeature.FeatureSetup();
+                OtherFeatureFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                ProductFeature.FeatureTearDown();
+                OtherFeatureFeature.FeatureTearDown();
             }
         }
     }
