@@ -89,14 +89,14 @@ namespace EaSpecflowTests.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Create product and verify the details (2)")]
+        [Xunit.SkippableFactAttribute(DisplayName="Forcing a test to fail")]
         [Xunit.TraitAttribute("FeatureTitle", "OtherFeature")]
-        [Xunit.TraitAttribute("Description", "Create product and verify the details (2)")]
-        public void CreateProductAndVerifyTheDetails2()
+        [Xunit.TraitAttribute("Description", "Forcing a test to fail")]
+        public void ForcingATestToFail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create product and verify the details (2)", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Forcing a test to fail", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -119,9 +119,9 @@ this.FeatureBackground();
                             "Price",
                             "ProductType"});
                 table1.AddRow(new string[] {
-                            "Keyboard",
-                            "Noise cancellation",
-                            "300",
+                            "",
+                            "Forcing the test to fail",
+                            "964",
                             "PERIPHARALS"});
 #line 9
  testRunner.And("I create a product with the following details", ((string)(null)), table1, "And ");

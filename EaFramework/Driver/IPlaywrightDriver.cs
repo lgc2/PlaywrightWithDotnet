@@ -8,6 +8,7 @@ namespace EaFramework.Driver
 		Task<IBrowserContext> BrowserContext { get; }
 		Task<IPage> Page { get; }
 		Task<IAPIRequestContext> ApiRequestContext { get; }
+		Task<string> TakeScreenshotAsPathAsync(string fileName);
 		void Dispose();
 	}
 }

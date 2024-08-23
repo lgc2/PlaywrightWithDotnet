@@ -1,5 +1,6 @@
 ﻿using Microsoft.Playwright;
 using EaFramework.Config;
+using System.Reflection;
 
 namespace EaFramework.Driver;
 
@@ -64,6 +65,17 @@ public class PlaywrightDriver : IDisposable, IPlaywrightDriver
 	private async Task<IPage> CreatePageAsync()
 	{
 		return await (await _browserContext).NewPageAsync();
+	}
+
+	public async Task<string> TakeScreenshotAsPathAsync(string fileName)
+	{
+		var path = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/{fileName}.png";
+		await Page.Result.ScreenshotAsync(new PageScreenshotOptions
+		{
+			Path = path
+		});
+
+		return path;
 	}
 
 	public void Dispose()

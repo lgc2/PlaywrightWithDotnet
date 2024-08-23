@@ -1,5 +1,7 @@
-﻿using AventStack.ExtentReports;
+﻿using System.Text.RegularExpressions;
+using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin.Model;
+using AventStack.ExtentReports.Model;
 using AventStack.ExtentReports.Reporter;
 using EaFramework.Config;
 using EaFramework.Driver;
@@ -11,6 +13,7 @@ namespace EaSpecflowTests.Hooks;
 [Binding]
 public class Hook
 {
+	private readonly IPlaywrightDriver _playwrightDriver;
 	private readonly TestSettings _testSettings;
 	private readonly FeatureContext _featureContext;
 	private readonly ScenarioContext _scenarioContext;
@@ -20,6 +23,7 @@ public class Hook
 
 	public Hook(IPlaywrightDriver playwrightDriver, TestSettings testSettings, FeatureContext featureContext, ScenarioContext scenarioContext)
 	{
+		_playwrightDriver = playwrightDriver;
 		_testSettings = testSettings;
 		_featureContext = featureContext;
 		_scenarioContext = scenarioContext;
@@ -44,8 +48,10 @@ public class Hook
 	}
 
 	[AfterStep]
-	public void AfterStep()
+	public async Task AfterStep()
 	{
+		var fileName = $"{_featureContext.FeatureInfo.Title.Trim()}_{Regex.Replace(_scenarioContext.ScenarioInfo.Title, @"\s", "")}";
+
 		if (_scenarioContext.TestError == null)
 		{
 			switch (_scenarioContext.StepContext.StepInfo.StepDefinitionType)
@@ -68,13 +74,25 @@ public class Hook
 			switch (_scenarioContext.StepContext.StepInfo.StepDefinitionType)
 			{
 				case StepDefinitionType.Given:
-					_scenario.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message);
+					_scenario.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message, new ScreenCapture
+					{
+						Title = "Error Screenshot",
+						Path = await _playwrightDriver.TakeScreenshotAsPathAsync(fileName)
+					});
 					break;
 				case StepDefinitionType.When:
-					_scenario.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message);
+					_scenario.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message, new ScreenCapture
+					{
+						Title = "Error Screenshot",
+						Path = await _playwrightDriver.TakeScreenshotAsPathAsync(fileName)
+					});
 					break;
 				case StepDefinitionType.Then:
-					_scenario.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message);
+					_scenario.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message, new ScreenCapture
+					{
+						Title = "Error Screenshot",
+						Path = await _playwrightDriver.TakeScreenshotAsPathAsync(fileName)
+					});
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
