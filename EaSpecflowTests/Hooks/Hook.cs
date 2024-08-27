@@ -34,6 +34,9 @@ public class Hook
 	public static void InitializeExtentReports()
 	{
 		_extentReports = new ExtentReports();
+		_extentReports.AddSystemInfo("os", "Windows");
+		_extentReports.AddSystemInfo("browser", "Chrome");
+		_extentReports.AddSystemInfo("browserVersion", "98.8");
 		var spark = new ExtentSparkReporter("TestReports.html");
 		_extentReports.AttachReporter(spark);
 	}
