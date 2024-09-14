@@ -12,6 +12,7 @@ namespace ProductAPI.Repository
         List<Product> GetAllProducts();
         Product GetProductById(int id);
         Product UpdateProduct(Product product);
+        int GetProductsCount();
     }
 
     public class ProductRepository : IProductRepository
@@ -59,6 +60,11 @@ namespace ProductAPI.Repository
             var product = _context.Products.FirstOrDefault(p => p.Name.ToLower() == name.ToLower());
             _context.Products.Remove(product);
             _context.SaveChanges();
+        }
+
+        public int GetProductsCount()
+        {
+            return _context.Products.ToList().Count();
         }
     }
 }

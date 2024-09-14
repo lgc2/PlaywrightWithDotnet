@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EaFramework", "EaFramework.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EaApplicationTest", "..\EaApplicationTest\EaApplicationTest.csproj", "{FCF6E6DB-51CF-4A49-983A-68C760401758}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EaSpecflowTests", "..\EaSpecflowTests\EaSpecflowTests.csproj", "{BA064337-6D8E-484F-B058-CF1090CD0077}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EaSpecflowTests", "..\EaSpecflowTests\EaSpecflowTests.csproj", "{BA064337-6D8E-484F-B058-CF1090CD0077}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductAPI", "..\ProductAPI\ProductAPI.csproj", "{F18564F5-A0E8-4BC0-97A4-210C3FF982EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{BA064337-6D8E-484F-B058-CF1090CD0077}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA064337-6D8E-484F-B058-CF1090CD0077}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA064337-6D8E-484F-B058-CF1090CD0077}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F18564F5-A0E8-4BC0-97A4-210C3FF982EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F18564F5-A0E8-4BC0-97A4-210C3FF982EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F18564F5-A0E8-4BC0-97A4-210C3FF982EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F18564F5-A0E8-4BC0-97A4-210C3FF982EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

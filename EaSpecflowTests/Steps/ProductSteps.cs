@@ -1,6 +1,7 @@
 using EaSpecflowTests.Models;
 using EaSpecflowTests.Pages;
 using Microsoft.Playwright;
+using ProductAPI.Repository;
 using TechTalk.SpecFlow.Assist;
 
 namespace EaSpecflowTests.Steps;
@@ -12,16 +13,19 @@ public sealed class ProductSteps
 	private readonly IProductCreatePage _productCreatePage;
 	private readonly IProductListPage _productListPage;
 	private readonly IProductDetailsPage _productDetailsPage;
+	private readonly IProductRepository _productRepository;
 
 	public ProductSteps(ScenarioContext scenarioContext,
 		IProductCreatePage productCreatePage,
 		IProductListPage productListPage,
-		IProductDetailsPage productDetailsPage)
+		IProductDetailsPage productDetailsPage,
+		IProductRepository productRepository)
 	{
 		_scenarioContext = scenarioContext;
 		_productCreatePage = productCreatePage;
 		_productListPage = productListPage;
 		_productDetailsPage = productDetailsPage;
+		_productRepository = productRepository;
 	}
 
 	[Given(@"I access the create product page")]
@@ -31,6 +35,7 @@ public sealed class ProductSteps
 	}
 
 	[Given(@"I create a product with the following details")]
+	[When(@"I create a product with the following details")]
 	public async Task GivenICreateAProductWithTheFollowingDetails(Table table)
 	{
 		var product = table.CreateInstance<Product>();
@@ -48,7 +53,7 @@ public sealed class ProductSteps
 		await _productListPage.ClickOnProductDetailsLnk(product.Name);
 	}
 
-	[Then(@"the I see that all the product details are created as expected")]
+	[Then(@"I see that all the product details are created as expected")]
 	public async Task ThenTheISeeThatAllTheProductDetailsAreCreatedAsExpected()
 	{
 		var product = _scenarioContext.Get<Product>();
@@ -57,4 +62,20 @@ public sealed class ProductSteps
 		await Assertions.Expect(_productDetailsPage.GetProductNameElement()).ToBeVisibleAsync();
 		await Assertions.Expect(_productDetailsPage.GetProductNameElement()).ToHaveTextAsync(product.Name);
 	}
+
+	[Given(@"I ensure to count the total number of products from DB")]
+	public void GivenIEnsureToCountTheTotalNumberOfProductsFromDB()
+	{
+		var numberOfProducts = _productRepository.GetProductsCount();
+		_scenarioContext.Set(numberOfProducts, "numberOfProducts");
+	}
+
+	[Then(@"I see the count of products increments")]
+	public void ThenISeeTheCountOfProductsIncrements()
+	{
+		var expectedNumberOfProducts = _scenarioContext.Get<int>("numberOfProducts") + 1;
+		var updatedNumberOfProducts = _productRepository.GetProductsCount();
+		Assert.True(expectedNumberOfProducts == updatedNumberOfProducts, $"The number of products should be {expectedNumberOfProducts}.");
+	}
+
 }
